@@ -3,12 +3,15 @@ using GD14_1133_A1_JuanDiego_DiceGame.Scripts;
 using JetBrains.Annotations;
 using System;
 using System.Threading;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class DiceGame : MonoBehaviour
 {
     public string playerDice = "d20";
     public string CPUDice = "d20";
+
+    public int mapSize = 5;
     void Start()
     {
         PlayerClass player = new PlayerClass("Hoodini");
@@ -34,6 +37,9 @@ public class DiceGame : MonoBehaviour
         {
             Debug.Log($"It's a tie!");
         }
+
+        VisualizeMap();
+        Debug.Log("Map printed");
     }
 
     // Update is called once per frame
@@ -41,4 +47,17 @@ public class DiceGame : MonoBehaviour
     {
         
     }
+
+    private void VisualizeMap()
+    {
+        for (int x = 0; x < mapSize; x++)
+        {
+            for (int z = 0; z < mapSize; z++)
+            {
+                var mapRoomRepresentation = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                mapRoomRepresentation.transform.position = new Vector3(x, 10, z);
+            }
+        }
+    }
+
 }
