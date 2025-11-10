@@ -2,40 +2,55 @@ using UnityEngine;
 
 public class MapManager : MonoBehaviour
 {
-    [SerializeField] private RoomBase[] RoomPrefabs;
-    [SerializeField] private float RoomSize = 1;
-    [SerializeField] private int MapSize = 1;
+    [SerializeField] private RoomBase[] roomPrefabs;
+    [SerializeField] private float roomSize = 8;
+    [SerializeField] private int mapSize = 5;
+
+    RoomBase[,] mapRooms;
+    public RoomBase[,] MapRooms
+    {
+        get
+        {
+            if (mapRooms == null)
+            {
+                mapRooms = new RoomBase[mapSize, mapSize];
+            }
+            return mapRooms;
+        }
+    }
 
     public void CreateMap()
     {
-        for (int x = 0; x < MapSize; x++)
+        mapRooms = new RoomBase[mapSize, mapSize];
+        for (int x = 0; x < mapSize; x++)
         {
-            for (int z = 0; z < MapSize; z++)
+            for (int z = 0; z < mapSize; z++)
             {
-                Vector3 coords = new Vector3(x * RoomSize, 0, z * RoomSize);
+                Vector3 coords = new Vector3(x * roomSize, 0, z * roomSize);
 
                 var roomInstance = Instantiate(
-                    RoomPrefabs[Random.Range(0, RoomPrefabs.Length)],
+                    roomPrefabs[Random.Range(0, roomPrefabs.Length)],
                     transform
                 );
 
                 roomInstance.transform.position = coords;
+                mapRooms[x, z] = roomInstance;
                 //roomInstance.transform.position = new Vector3(coords.x, 0, coords.z);
             }
         }
 
         // Set doorways
-        for (int x = 0; x < MapSize; x++)
+        for (int x = 0; x < mapSize; x++)
         {
-            for (int z = 0; z < MapSize; z++)
+            for (int z = 0; z < mapSize; z++)
             {
-                int roomIndex = x * MapSize + z;
+                int roomIndex = x * mapSize + z;
 
                 RoomBase currentRoom = transform.GetChild(roomIndex).GetComponent<RoomBase>();
-                RoomBase northRoom = (z < MapSize - 1) ? transform.GetChild(x * MapSize + (z + 1)).GetComponent<RoomBase>() : null;
-                RoomBase eastRoom = (x < MapSize - 1) ? transform.GetChild((x + 1) * MapSize + z).GetComponent<RoomBase>() : null;
-                RoomBase southRoom = (z > 0) ? transform.GetChild(x * MapSize + (z - 1)).GetComponent<RoomBase>() : null;
-                RoomBase westRoom = (x > 0) ? transform.GetChild((x - 1) * MapSize + z).GetComponent<RoomBase>() : null;
+                RoomBase northRoom = (z < mapSize - 1) ? transform.GetChild(x * mapSize + (z + 1)).GetComponent<RoomBase>() : null;
+                RoomBase eastRoom = (x < mapSize - 1) ? transform.GetChild((x + 1) * mapSize + z).GetComponent<RoomBase>() : null;
+                RoomBase southRoom = (z > 0) ? transform.GetChild(x * mapSize + (z - 1)).GetComponent<RoomBase>() : null;
+                RoomBase westRoom = (x > 0) ? transform.GetChild((x - 1) * mapSize + z).GetComponent<RoomBase>() : null;
 
                 currentRoom.SetDoorways(northRoom, eastRoom, southRoom, westRoom);
             }
