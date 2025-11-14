@@ -6,6 +6,9 @@ public class MapManager : MonoBehaviour
     [SerializeField] private float roomSize = 8;
     [SerializeField] private int mapSize = 5;
 
+    public int MapSize => mapSize;
+    public float RoomSize => roomSize;
+
     RoomBase[,] mapRooms;
     public RoomBase[,] MapRooms
     {
@@ -34,6 +37,8 @@ public class MapManager : MonoBehaviour
                 );
 
                 roomInstance.transform.position = coords;
+                roomInstance.X = x;
+                roomInstance.Z = z;
                 mapRooms[x, z] = roomInstance;
                 //roomInstance.transform.position = new Vector3(coords.x, 0, coords.z);
             }

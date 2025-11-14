@@ -4,7 +4,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-   public enum Direction
+    // ------------------------------------- ROTATION -------------------------------------
+    public enum Direction
    {
        North,
        East,
@@ -26,6 +27,30 @@ public class PlayerController : MonoBehaviour
     private float _rotationTimer = 0f;
     private Quaternion _previusRotation;
 
+
+    // ------------------------------------- MOVEMENT -------------------------------------
+    private MapManager _map;
+    private int _roomX;
+    private int _roomZ;
+
+    [SerializeField] private float moveTime = 0.4f;
+    private bool _isMoving = false;
+    private float _moveTimer = 0f;
+    private Vector3 _startMovePos;
+    private Vector3 _targetMovePos;
+
+    [SerializeField] private float bumpDistance = 0.3f;
+    private bool _isBumping = false;
+    // -------------------------------------------------------------------------------------
+
+    public void SetStartingRoom(RoomBase room, MapManager map)
+    {
+        _map = map;
+        _roomX = room.X;
+        _roomZ = room.Z;
+
+        transform.position = new Vector3(room.transform.position.x, 0, room.transform.position.z);
+    }
     public void Setup()
     {
         Direction[] directions = { Direction.North, Direction.East, Direction.South, Direction.West };
@@ -81,6 +106,70 @@ public class PlayerController : MonoBehaviour
         }
         StartRotating();
     }
+    private void MoveForward()
+    {
+        if (_isMoving || _isRotating || _isBumping) return;
+
+        int targetX = _roomX;
+        int targetZ = _roomZ;
+
+        switch (_facingDirection)
+        {
+            case Direction.North: targetZ += 1; break;
+            case Direction.East: targetX += 1; break;
+            case Direction.South: targetZ -= 1; break;
+            case Direction.West: targetX -= 1; break;
+        }
+
+        // null room = bump
+        if (targetX < 0 || targetX >= _map.MapSize ||
+            targetZ < 0 || targetZ >= _map.MapSize ||
+            _map.MapRooms[targetX, targetZ] == null)
+        {
+            StartCoroutine(WallBump());
+            return;
+        }
+
+        // move to next rooom
+        _isMoving = true;
+        _moveTimer = 0f;
+
+        _startMovePos = transform.position;
+        _targetMovePos = new Vector3(
+            targetX * _map.RoomSize,
+            0,
+            targetZ * _map.RoomSize
+        );
+
+        _roomX = targetX;
+        _roomZ = targetZ;
+    }
+
+    private System.Collections.IEnumerator WallBump()
+    {
+        _isBumping = true;
+
+        Vector3 start = transform.position;
+        Vector3 end = start + transform.forward * bumpDistance;
+
+        float t = 0f;
+        while (t < 1f)
+        {
+            t += Time.deltaTime * 4f;
+            transform.position = Vector3.Lerp(start, end, t);
+            yield return null;
+        }
+
+        t = 0f;
+        while (t < 1f)
+        {
+            t += Time.deltaTime * 4f;
+            transform.position = Vector3.Lerp(end, start, t);
+            yield return null;
+        }
+
+        _isBumping = false;
+    }
 
     public Vector2 Move;
     private void MoveInput(Vector2 newMoveDirection)
@@ -91,13 +180,20 @@ public class PlayerController : MonoBehaviour
         bool rotateLeft = Move.x < 0;
         bool rotateRight = Move.x > 0;
 
-        if (rotateLeft && !rotateRight && !_isRotating)
+        bool moveForward = Move.y > 0;
+
+        bool _notDoingAnyMovement = !_isRotating && !_isMoving && !_isBumping;
+        if (rotateLeft && _notDoingAnyMovement)
         {
             TurnLeft();
         }
-        else if (rotateRight && !rotateLeft && !_isRotating)
+        else if (rotateRight && _notDoingAnyMovement)
         {
             TurnRight();
+        }
+        else if (moveForward && _notDoingAnyMovement)
+        {
+            MoveForward();
         }
     }
     public void OnMove(InputValue value)
@@ -129,6 +225,17 @@ public class PlayerController : MonoBehaviour
                 _rotationTimer = 0f;
                 SetFacingDirection();
             }
+        }
+
+        if (_isMoving)
+        {
+            _moveTimer += Time.deltaTime;
+            float t = _moveTimer / moveTime;
+
+            transform.position = Vector3.Lerp(_startMovePos, _targetMovePos, t);
+
+            if (t >= 1f)
+                _isMoving = false;
         }
     }
 }

@@ -3,6 +3,8 @@ using UnityEngine;
 public class RoomBase : MonoBehaviour
 {
     [SerializeField] private GameObject NorthDoorway, EastDoorway, SouthDoorway, WestDoorway;
+    public int X { get; set; }
+    public int Z { get; set; }
 
     public void SetDoorways(RoomBase northRoom, RoomBase eastRoom, RoomBase southRoom, RoomBase westRoom)
     {
