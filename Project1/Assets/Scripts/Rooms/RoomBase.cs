@@ -13,4 +13,10 @@ public class RoomBase : MonoBehaviour
         SouthDoorway.SetActive(southRoom == null);
         WestDoorway.SetActive(westRoom == null);
     }
+
+
+    public virtual void OnRoomSearch()
+    {
+        Debug.Log($"You search but find nothing of interest...");
+    }
 }

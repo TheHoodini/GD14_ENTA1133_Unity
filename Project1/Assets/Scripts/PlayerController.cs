@@ -39,10 +39,29 @@ public class PlayerController : MonoBehaviour
     private Vector3 _startMovePos;
     private Vector3 _targetMovePos;
 
-    [SerializeField] private float bumpDistance = 0.3f;
+    private float bumpDistance = 0.3f;
     private bool _isBumping = false;
-    // -------------------------------------------------------------------------------------
+    
+    private RoomBase _currentRoom;
 
+    // ------------------------------------- ROOMS -------------------------------------
+    private void OnTriggerEnter(Collider other)
+    {
+        RoomBase room = other.GetComponent<RoomBase>();
+        if (room != null)
+        {
+            _currentRoom = room;
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        RoomBase room = other.GetComponent<RoomBase>();
+        if (room != null && room == _currentRoom)
+        {
+            _currentRoom = null;
+        }
+    }
+    // -------------------------------------------------------------------------------------
     public void SetStartingRoom(RoomBase room, MapManager map)
     {
         _map = map;
@@ -175,7 +194,7 @@ public class PlayerController : MonoBehaviour
     private void MoveInput(Vector2 newMoveDirection)
     {
         Move = newMoveDirection;
-        Debug.Log($"Move Input: {Move.x}{Move.y}");
+        // Debug.Log($"Move Input: {Move.x}{Move.y}");
 
         bool rotateLeft = Move.x < 0;
         bool rotateRight = Move.x > 0;
@@ -205,6 +224,16 @@ public class PlayerController : MonoBehaviour
     {
         _previusRotation = transform.rotation;
         _isRotating = true;
+    }
+
+    public void OnInteract(InputValue value)
+    {
+        bool interactPressed = value.Get<float>() > 0;
+
+        if (interactPressed && _currentRoom != null)
+        {
+            _currentRoom.OnRoomSearch();
+        }
     }
     private void Update()
     {
