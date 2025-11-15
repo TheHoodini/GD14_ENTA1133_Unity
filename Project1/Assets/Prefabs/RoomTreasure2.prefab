@@ -201,6 +201,7 @@ MonoBehaviour:
   EastDoorway: {fileID: 1833141211294624371}
   SouthDoorway: {fileID: 8368816265873423130}
   WestDoorway: {fileID: 5809160396919058890}
+  treasureID: 2
 --- !u!1 &8368816265873423130 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5336622669307364503, guid: bed9ac15cc0c86e4eae92bbe3886e2d3, type: 3}
