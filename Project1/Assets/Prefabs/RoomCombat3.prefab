@@ -206,6 +206,7 @@ MonoBehaviour:
   EastDoorway: {fileID: 625028155814239861}
   SouthDoorway: {fileID: 7347668963998945052}
   WestDoorway: {fileID: 4702430266739918284}
+  combatID: 3
 --- !u!1001 &7122801230550404046
 PrefabInstance:
   m_ObjectHideFlags: 0
