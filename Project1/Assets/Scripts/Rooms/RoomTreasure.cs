@@ -4,19 +4,22 @@ public class RoomTreasure : RoomBase
 {
 
     [SerializeField] private int treasureID = 1;
-    public override void OnRoomSearch()
+    public override string OnRoomSearch()
     {
+        string message = "";
         switch (treasureID)
         {
             case 1:
-                Debug.Log($"You search... And you find yourself in a treasure room!");
+                message = "You search... And you find yourself in a treasure room!";
                 break;
             case 2:
-                Debug.Log($"You search... And find a precious treasure!");
+                message = "You search... And find a precious treasure!";
                 break;
             default:
-                Debug.Log($"You search... And find a pile of gold coins!");
+                message = "You search... And find a pile of gold coins!";
                 break;
         }
+        Debug.Log(message);
+        return message;
     }
 }
