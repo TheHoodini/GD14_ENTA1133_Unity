@@ -51,6 +51,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationTime: 0.5
   moveTime: 0.6
+  uiManager: {fileID: 2659897258107183616, guid: 94c1a6f8fdc750c47be4cafe131cd859, type: 3}
   Move: {x: 0, y: 0}
 --- !u!114 &1098432370247889047
 MonoBehaviour:

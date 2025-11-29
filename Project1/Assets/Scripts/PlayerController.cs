@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -43,6 +44,10 @@ public class PlayerController : MonoBehaviour
     private bool _isBumping = false;
     
     private RoomBase _currentRoom;
+    public RoomBase CurrentRoom => _currentRoom;
+
+    // ------------------------------------- UI ----------------------------------------
+    private UIManager uiManager;
 
     // ------------------------------------- ROOMS -------------------------------------
     private void OnTriggerEnter(Collider other)
@@ -70,8 +75,10 @@ public class PlayerController : MonoBehaviour
 
         transform.position = new Vector3(room.transform.position.x, 0, room.transform.position.z);
     }
-    public void Setup()
+    public void Setup(UIManager useUIManager)
     {
+        uiManager = useUIManager;
+
         Direction[] directions = { Direction.North, Direction.East, Direction.South, Direction.West };
 
         _facingDirection = directions[Random.Range(0, directions.Length)];
@@ -232,7 +239,8 @@ public class PlayerController : MonoBehaviour
 
         if (interactPressed && _currentRoom != null)
         {
-            _currentRoom.OnRoomSearch();
+            string roomDesc = _currentRoom.OnRoomSearch();
+            uiManager.UpdateRoomDescription(roomDesc);
         }
     }
     private void Update()

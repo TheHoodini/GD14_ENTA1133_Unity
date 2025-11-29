@@ -4,14 +4,23 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private MapManager GameMapPrefab;
     [SerializeField] private PlayerController PlayerPrefab;
+    [SerializeField] private UIManager UIManagerPrefab;
 
     private MapManager _gameMap;
     private PlayerController _playerController;
+    private UIManager _uiManager;
 
     void Start()
     {
+        MainMenuScreen();
         SetupMap();
         SpawnPlayer();
+    }
+
+    private void MainMenuScreen()
+    { 
+        _uiManager = Instantiate(UIManagerPrefab, transform);
+        _uiManager.ShowMainMenu();
     }
 
     private void SetupMap()
@@ -36,7 +45,7 @@ public class GameManager : MonoBehaviour
         ];
         _playerController = Instantiate(PlayerPrefab, transform);
         _playerController.transform.position = new Vector3(startingRoom.transform.position.x, 0, startingRoom.transform.position.z);
-        _playerController.Setup();
+        _playerController.Setup(_uiManager);
 
         _playerController.SetStartingRoom(startingRoom, _gameMap);
         Debug.Log("Player Spawned");

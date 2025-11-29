@@ -1,3 +1,4 @@
+using UnityEditor.VersionControl;
 using UnityEngine;
 
 public class RoomBase : MonoBehaviour
@@ -15,8 +16,15 @@ public class RoomBase : MonoBehaviour
     }
 
 
-    public virtual void OnRoomSearch()
+    public virtual string OnRoomSearch()
     {
-        Debug.Log($"You search but find nothing of interest...");
+        string message = "You search but find nothing of interest...";
+        Debug.Log(message);
+        return message;
+    }
+
+    public virtual void OnRoomEnter()
+    {
+        Debug.Log($"You enter an empty room...");
     }
 }
