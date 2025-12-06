@@ -21,4 +21,8 @@ public class RoomCombat : RoomBase
         Debug.Log(message);
         return message;
     }
+    public override string OnRoomEnter()
+    {
+        return "You enter inside a room filled with bricks...";
+    }
 }

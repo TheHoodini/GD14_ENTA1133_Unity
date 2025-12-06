@@ -56,6 +56,8 @@ public class PlayerController : MonoBehaviour
         if (room != null)
         {
             _currentRoom = room;
+            string roomEnterDesc = _currentRoom.OnRoomEnter();
+            uiManager.UpdateRoomDescription(roomEnterDesc);
         }
     }
     private void OnTriggerExit(Collider other)
@@ -208,16 +210,16 @@ public class PlayerController : MonoBehaviour
 
         bool moveForward = Move.y > 0;
 
-        bool _notDoingAnyMovement = !_isRotating && !_isMoving && !_isBumping;
-        if (rotateLeft && _notDoingAnyMovement)
+        bool _canMove = !_isRotating && !_isMoving && !_isBumping;
+        if (rotateLeft && _canMove)
         {
             TurnLeft();
         }
-        else if (rotateRight && _notDoingAnyMovement)
+        else if (rotateRight && _canMove)
         {
             TurnRight();
         }
-        else if (moveForward && _notDoingAnyMovement)
+        else if (moveForward && _canMove)
         {
             MoveForward();
         }
@@ -243,6 +245,14 @@ public class PlayerController : MonoBehaviour
             uiManager.UpdateRoomDescription(roomDesc);
         }
     }
+
+    public void OnInventory(InputValue value) 
+    {
+        if (uiManager.canPause) {
+            uiManager.ShowPauseMenu();
+        }
+    }
+
     private void Update()
     {
         if (_isRotating)

@@ -22,4 +22,9 @@ public class RoomTreasure : RoomBase
         Debug.Log(message);
         return message;
     }
+
+    public override string OnRoomEnter()
+    {
+        return "You enter inside an empty golden room...";
+    }
 }

@@ -28,7 +28,7 @@
                     "name": "Attack",
                     "type": "Button",
                     "id": "6c2ab1b8-8984-453a-af3d-a3c78ae1679a",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -37,6 +37,15 @@
                     "name": "Interact",
                     "type": "Value",
                     "id": "852140f2-7766-474d-8707-702459ba45f3",
+                    "expectedControlType": "Integer",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Inventory",
+                    "type": "Value",
+                    "id": "faa6c6f6-11cd-402c-ab82-a4d1c790beb0",
                     "expectedControlType": "Integer",
                     "processors": "",
                     "interactions": "",
@@ -73,7 +82,7 @@
                     "name": "Next",
                     "type": "Button",
                     "id": "b7230bb6-fc9b-4f52-8b25-f5e19cb2c2ba",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -443,12 +452,12 @@
                 },
                 {
                     "name": "",
-                    "id": "b3f66d0b-7751-423f-908b-a11c5bd95930",
-                    "path": "<Gamepad>/buttonNorth",
+                    "id": "645b5b5d-8f2b-4a64-9444-085186a3c3f3",
+                    "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Interact",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Inventory",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
