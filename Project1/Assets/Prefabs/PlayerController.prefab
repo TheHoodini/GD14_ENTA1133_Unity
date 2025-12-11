@@ -51,7 +51,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationTime: 0.5
   moveTime: 0.6
-  uiManager: {fileID: 2659897258107183616, guid: 94c1a6f8fdc750c47be4cafe131cd859, type: 3}
   Move: {x: 0, y: 0}
 --- !u!114 &1098432370247889047
 MonoBehaviour:
@@ -80,7 +79,7 @@ MonoBehaviour:
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: 
+  m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!54 &8933506610705289013
@@ -158,7 +157,7 @@ Transform:
   m_GameObject: {fileID: 5433290877330723048}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.47, z: -2.29}
+  m_LocalPosition: {x: 0, y: 1.4, z: -0.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

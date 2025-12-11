@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
        South,
        West
     }
-
+    
     private Dictionary<Direction, int> _rotationByDirection = new()
     {
         { Direction.North, 0 },
@@ -48,6 +48,11 @@ public class PlayerController : MonoBehaviour
 
     // ------------------------------------- UI ----------------------------------------
     private UIManager uiManager;
+    private int coins = 0;
+    public int Coins {
+        get => coins;
+        set => coins = value;
+    }
 
     // ------------------------------------- ROOMS -------------------------------------
     private void OnTriggerEnter(Collider other)
@@ -56,6 +61,8 @@ public class PlayerController : MonoBehaviour
         if (room != null)
         {
             _currentRoom = room;
+            string roomEnterDesc = _currentRoom.OnRoomEnter();
+            uiManager.UpdateRoomDescription(roomEnterDesc);
         }
     }
     private void OnTriggerExit(Collider other)
@@ -201,23 +208,24 @@ public class PlayerController : MonoBehaviour
     private void MoveInput(Vector2 newMoveDirection)
     {
         Move = newMoveDirection;
-        // Debug.Log($"Move Input: {Move.x}{Move.y}");
+
+        Debug.Log($"Move Input: {Move.x}{Move.y}");
 
         bool rotateLeft = Move.x < 0;
         bool rotateRight = Move.x > 0;
 
         bool moveForward = Move.y > 0;
 
-        bool _notDoingAnyMovement = !_isRotating && !_isMoving && !_isBumping;
-        if (rotateLeft && _notDoingAnyMovement)
+        bool _canMove = !_isRotating && !_isMoving && !_isBumping;
+        if (rotateLeft && _canMove)
         {
             TurnLeft();
         }
-        else if (rotateRight && _notDoingAnyMovement)
+        else if (rotateRight && _canMove)
         {
             TurnRight();
         }
-        else if (moveForward && _notDoingAnyMovement)
+        else if (moveForward && _canMove)
         {
             MoveForward();
         }
@@ -241,8 +249,17 @@ public class PlayerController : MonoBehaviour
         {
             string roomDesc = _currentRoom.OnRoomSearch();
             uiManager.UpdateRoomDescription(roomDesc);
+            uiManager.UpdateCoins(coins);
         }
     }
+
+    public void OnPause(InputValue value) 
+    {
+        if (uiManager.canPause) {
+            uiManager.ShowPauseMenu();
+        }
+    }
+
     private void Update()
     {
         if (_isRotating)

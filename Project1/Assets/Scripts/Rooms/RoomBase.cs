@@ -1,4 +1,3 @@
-using UnityEditor.VersionControl;
 using UnityEngine;
 
 public class RoomBase : MonoBehaviour
@@ -23,8 +22,10 @@ public class RoomBase : MonoBehaviour
         return message;
     }
 
-    public virtual void OnRoomEnter()
+    public virtual string OnRoomEnter()
     {
-        Debug.Log($"You enter an empty room...");
+        string message = "You enter inside an empty room...";
+        Debug.Log(message);
+        return message;
     }
 }

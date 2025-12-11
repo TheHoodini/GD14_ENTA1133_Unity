@@ -202,6 +202,8 @@ MonoBehaviour:
   SouthDoorway: {fileID: 8368816265873423130}
   WestDoorway: {fileID: 5809160396919058890}
   treasureID: 3
+  treasureMesh: {fileID: 7588858926953203217}
+  player: {fileID: 2045157917343664298, guid: 0a64f7b5e16c6ca42aada65bf84d5eef, type: 3}
 --- !u!1 &8368816265873423130 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5336622669307364503, guid: bed9ac15cc0c86e4eae92bbe3886e2d3, type: 3}
@@ -291,5 +293,10 @@ PrefabInstance:
 --- !u!4 &7069202602598685867 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 22118bda9b42d02409ccb03f0b1f8b19, type: 3}
+  m_PrefabInstance: {fileID: 7318458441206610752}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7588858926953203217 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 22118bda9b42d02409ccb03f0b1f8b19, type: 3}
   m_PrefabInstance: {fileID: 7318458441206610752}
   m_PrefabAsset: {fileID: 0}
