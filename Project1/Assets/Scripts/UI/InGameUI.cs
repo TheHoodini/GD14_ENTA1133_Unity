@@ -4,6 +4,7 @@ using TMPro;
 public class InGameUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI roomDesc;
+    [SerializeField] private TextMeshProUGUI coinsAmount;
 
     public void ButtonStartGame()
     {
@@ -12,5 +13,10 @@ public class InGameUI : MonoBehaviour
     public void PrintRoomDescription(string description)
     {
         roomDesc.text = ">" + description;
+    }
+
+    public void PrintCoinsAmount(string amount) 
+    { 
+        coinsAmount.text = amount; 
     }
 }

@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
        South,
        West
     }
-
+    
     private Dictionary<Direction, int> _rotationByDirection = new()
     {
         { Direction.North, 0 },
@@ -48,6 +48,11 @@ public class PlayerController : MonoBehaviour
 
     // ------------------------------------- UI ----------------------------------------
     private UIManager uiManager;
+    private int coins = 0;
+    public int Coins {
+        get => coins;
+        set => coins = value;
+    }
 
     // ------------------------------------- ROOMS -------------------------------------
     private void OnTriggerEnter(Collider other)
@@ -203,7 +208,8 @@ public class PlayerController : MonoBehaviour
     private void MoveInput(Vector2 newMoveDirection)
     {
         Move = newMoveDirection;
-        // Debug.Log($"Move Input: {Move.x}{Move.y}");
+
+        Debug.Log($"Move Input: {Move.x}{Move.y}");
 
         bool rotateLeft = Move.x < 0;
         bool rotateRight = Move.x > 0;
@@ -243,10 +249,11 @@ public class PlayerController : MonoBehaviour
         {
             string roomDesc = _currentRoom.OnRoomSearch();
             uiManager.UpdateRoomDescription(roomDesc);
+            uiManager.UpdateCoins(coins);
         }
     }
 
-    public void OnInventory(InputValue value) 
+    public void OnPause(InputValue value) 
     {
         if (uiManager.canPause) {
             uiManager.ShowPauseMenu();

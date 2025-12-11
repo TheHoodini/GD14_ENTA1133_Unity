@@ -43,7 +43,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Inventory",
+                    "name": "Pause",
                     "type": "Value",
                     "id": "faa6c6f6-11cd-402c-ab82-a4d1c790beb0",
                     "expectedControlType": "Integer",
@@ -91,7 +91,7 @@
                     "name": "Sprint",
                     "type": "Button",
                     "id": "641cd816-40e6-41b4-8c3d-04687c349290",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -457,7 +457,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Inventory",
+                    "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

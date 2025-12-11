@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance;
+
     [SerializeField] private MapManager GameMapPrefab;
     [SerializeField] private PlayerController PlayerPrefab;
     [SerializeField] private UIManager UIManagerPrefab;
@@ -9,6 +11,10 @@ public class GameManager : MonoBehaviour
     private MapManager _gameMap;
     private PlayerController _playerController;
     private UIManager _uiManager;
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
@@ -49,5 +55,10 @@ public class GameManager : MonoBehaviour
 
         _playerController.SetStartingRoom(startingRoom, _gameMap);
         Debug.Log("Player Spawned");
+    }
+
+    public void AddCoins(int coinAmount)
+    {
+        _playerController.Coins += coinAmount;
     }
 }

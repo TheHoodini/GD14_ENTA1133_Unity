@@ -39,4 +39,9 @@ public class UIManager : MonoBehaviour
         pauseMenu.gameObject.SetActive(false);
         Time.timeScale = 1f;
     }
+
+    public void UpdateCoins(int coins)
+    {
+        inGameUI.PrintCoinsAmount(coins.ToString());
+    }
 }
